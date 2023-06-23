@@ -1,11 +1,29 @@
-<h1>accounts list</h1>
+<h1>Sąskaitų sąrašas</h1>
+
 <?php if (empty($accounts)) : ?>
-    <p>No accounts found.</p>
-<?php else: ?>
-<?php foreach ($accounts as $account) : ?>
-    <h2><?= $account['name'] ?></h2>
-    <p><?= $account['description'] ?></p>
-    <a href="/account/edit/<?= $account['id'] ?>">Edit</a>
-    <a href="/account/delete/<?= $account['id'] ?>">Delete</a>
-<?php endforeach ?>
+    <p>Sąskaitų sąrašas tuščias.</p>
+
+<?php else : ?>
+    <?php foreach ($accounts as $account) : ?>
+        <div>
+            <h2><?= $account['firstName'] ?> <?= $account['lastName'] ?></h2>
+        </div>
+        <h3><?= $account['personalId'] ?></h3>
+        <h3><?= $account['accountNo'] ?></h3>
+        <h3><?= $account['balance'] ?> €</h3>
+
+        <button>
+            <a href="/account/edit/<?= $account['id'] ?>">Redaguoti balansą</a>
+        </button>
+        <button>
+            <a href="/account/delete/<?= $account['id'] ?>">Ištrinti sąskaitą</a>
+        </button>
+
+    <?php endforeach ?>
 <?php endif ?>
+
+<div>
+    <button>
+        <a href="/account/create/">Pridėti naują sąskaitą</a>
+    </button>
+</div>

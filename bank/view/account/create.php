@@ -1,14 +1,39 @@
-<h1>Create account</h1>
+<h1>Pridėti naują sąskaitą</h1>
 <form action="/account/store" method="post">
     <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
+        <label for="firstName">Vardas</label>
+        <input type="text" name="firstName" required>
     </div>
     <div>
-        <label for="description">Description</label>
-        <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+        <label for="lastName">Pavardė</label>
+        <input type="text" name="lastName" required>
     </div>
     <div>
-        <button type="submit">Create</button>
+        <label for="personalId">Asmens kodas</label>
+        <input type="text" name="personalId" required>
+    </div>
+    <div>
+        <label for="accountNo">Banko sąskaitos numeris</label>
+        <input type="text" name="accountNo" required>
+    </div>
+    <div>
+        <label for="accountNo">Balansas</label>
+        <input type="text" name="balance" placeholder="0 €" readonly>
+    </div>
+    <div>
+        <button type="submit">Išsaugoti</button>
+        <button>
+            <a href="/account">Atšaukti</a>
+        </button>
     </div>
 </form>
+
+
+
+
+
+
+
+
+
+

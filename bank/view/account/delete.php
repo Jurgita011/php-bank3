@@ -1,13 +1,17 @@
-<h1>Confirm account delete</h1>
+<h1>Ištrinti sąskaitą</h1>
 <form action="/account/destroy/<?= $account['id'] ?>" method="post">
     <div>
-        <p>Are you sure you want to delete this account?</p>
-        <h2><?= $account['name'] ?></h2>
+        <p>Ar tikrai norite ištrinti sąskaitą?</p>
+        <div>
+            <h2><?= $account['firstName'] ?> <?= $account['lastName'] ?></h2>
+        </div>
+        <h3><?= $account['accountNo'] ?></h3>
     </div>
     <div>
-        <button type="submit">Delete</button>
+        <button type="submit">Ištrinti</button>
+        <button>
+            <a href="/account">Atšaukti</a>
+        </button>
     </div>
-    <div>
-        <a href="/account">Cancel</a>
-    </div>
+
 </form>
