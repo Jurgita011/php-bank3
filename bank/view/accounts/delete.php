@@ -1,14 +1,14 @@
-<h1>Ištrinti sąskaitą</h1>
+<<h1>Ištrinti sąskaitą</h1>
 
 <p>Ar tikrai norite ištrinti sąskaitą?</p>
 
-<form action="/accounts/destroy/<?= $account['id'] ?>" method="post">
+<form action="/accounts/destroy/<?= $accounts['id'] ?>" method="post">
 
     <div>
         <div>
-            <h2><?= $account['firstName'] ?> <?= $account['lastName'] ?></h2>
+            <h2><?= $accounts['firstName'] ?> <?= $accounts['lastName'] ?></h2>
         </div>
-        <h3><?= $account['accountNo'] ?></h3>
+        <h3><?= $accounts['accountNo'] ?></h3>
     </div>
 
     <div>
