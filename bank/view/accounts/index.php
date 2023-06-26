@@ -13,10 +13,10 @@
         <h3><?= $account['balance'] ?> €</h3>
 
         <button>
-            <a href="/account/edit/<?= $account['id'] ?>">Redaguoti balansą</a>
+            <a href="/accounts/edit/<?= $account['id'] ?>">Redaguoti sąskaitą</a>
         </button>
         <button>
-            <a href="/account/delete/<?= $account['id'] ?>">Ištrinti sąskaitą</a>
+            <a href="/accounts/delete/<?= $account['id'] ?>">Ištrinti sąskaitą</a>
         </button>
 
     <?php endforeach ?>
@@ -24,6 +24,6 @@
 
 <div>
     <button>
-        <a href="/account/create/">Pridėti naują sąskaitą</a>
+        <a href="/accounts/create/">Pridėti naują sąskaitą</a>
     </button>
 </div>

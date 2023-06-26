@@ -10,63 +10,63 @@ class AccountsController
 {
     public function index()
     {
-        $data = new FileWriter('account');
+        $data = new FileWriter('accounts');
         
-        return App::view('account/index', [
-            'pageTitle' => 'Accounts list',
+        return App::view('accounts/index', [
+            'pageTitle' => 'Sąskaitų sąrašas',
             'accounts' => $data->showAll(),
         ]);
     }
 
     public function create()
     {
-        return App::view('account/create', [
-            'pageTitle' => 'Create account',
+        return App::view('accounts/create', [
+            'pageTitle' => 'Pridėti sąskaitą',
         ]);
     }
 
     public function store(array $request)
     {
-        $data = new FileWriter('account');
+        $data = new FileWriter('accounts');
         $data->create($request);
 
-        header('Location: /account');
+        header('Location: /accounts');
     }
 
     public function edit(int $id)
     {
-        $data = new FileWriter('account');
+        $data = new FileWriter('accounts');
         $account = $data->show($id);
 
-        return App::view('account/edit', [
-            'pageTitle' => 'Edit account',
-            'account' => $account,
+        return App::view('accounts/edit', [
+            'pageTitle' => 'Redaguoti sąskaitą',
+            'accounts' => $account,
         ]);
     }
 
     public function update(int $id, array $request)
     {
-        $data = new FileWriter('account');
+        $data = new FileWriter('accounts');
         $data->update($id, $request);
 
-        header('Location: /account');
+        header('Location: /accounts');
     }
 
     public function delete(int $id)
     {
-        $account = (new FileWriter('account'))->show($id);
-        return App::view('account/delete', [
-            'pageTitle' => 'Confirm account delete',
-            'account' => $account,
+        $account = (new FileWriter('accounts'))->show($id);
+        return App::view('accounts/delete', [
+            'pageTitle' => 'Ištrinti sąskaitą',
+            'accounts' => $account,
         ]);
     }
 
     public function destroy(int $id)
     {
-        $data = new FileWriter('account');
+        $data = new FileWriter('accounts');
         $data->delete($id);
 
-        header('Location: /account');
+        header('Location: /accounts');
     }
 
 }
