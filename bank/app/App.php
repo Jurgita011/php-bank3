@@ -4,6 +4,7 @@ namespace Bank;
 
 use Bank\Controllers\AccountsController;
 use Bank\Controllers\HomeController;
+use Bank\Controllers\LoginController;
 
 class App
 {
@@ -23,20 +24,52 @@ class App
             return (new HomeController)->index();
         }
 
+        // Login
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'login') {
+            return (new LoginController)->index();
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 1 && $url[0] == 'login') {
+            return (new LoginController)->login($_POST);
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 1 && $url[0] == 'logout') {
+            return (new LoginController)->logout($_POST);
+        }
+        // Login END
+
+        // Auth middleware
+        if (!isset($_SESSION['email'])) {
+            header('Location: /login');
+            die;
+        }
+        // Auth middleware END
+
+
         // Account START
-        else if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'accounts') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'accounts') {
             return (new AccountsController)->index();
-        } else if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 2 && $url[0] == 'accounts' && $url[1] == 'create') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 2 && $url[0] == 'accounts' && $url[1] == 'create') {
             return (new AccountsController)->create();
-        } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 2 && $url[0] == 'accounts' && $url[1] == 'store') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 2 && $url[0] == 'accounts' && $url[1] == 'store') {
             return (new AccountsController)->store($_POST);
-        } else if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'edit') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'edit') {
             return (new AccountsController)->edit($url[2]);
-        } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'update') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'update') {
             return (new AccountsController)->update($url[2], $_POST);
-        } else if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'delete') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'delete') {
             return (new AccountsController)->delete($url[2]);
-        } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'destroy') {
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($url) == 3 && $url[0] == 'accounts' && $url[1] == 'destroy') {
             return (new AccountsController)->destroy($url[2]);
         }
         // Account END
@@ -56,9 +89,9 @@ class App
 
         ob_start();
 
-        require __DIR__ . '/../view/top.php';
-        require __DIR__ . '/../view/' . $path . '.php';
-        require __DIR__ . '/../view/bottom.php';
+        require __DIR__ . '/../views/top.php';
+        require __DIR__ . '/../views/' . $path . '.php';
+        require __DIR__ . '/../views/bottom.php';
 
         return ob_get_clean();
     }
