@@ -4,7 +4,7 @@
 
     <table>
         <?php if (empty($accounts)) : ?>
-            <p class="w3-margin">Sąskaitų sąrašas tuščias.</p>
+            <p >Sąskaitų sąrašas tuščias.</p>
 
         <?php else : ?>
             <tr>

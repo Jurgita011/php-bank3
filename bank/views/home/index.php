@@ -2,7 +2,7 @@
 
 <div >
 
-    <h1 ></h1>
+    <h1 >Bankas Milionas</h1>
 
     <h2>Sveiki atvykę!</h2>
 

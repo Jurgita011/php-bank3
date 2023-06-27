@@ -1,38 +1,37 @@
-<h1>Redaguoti sąskaitą</h1>
+<div >
 
-<p>Redaguokite sąskaitos duomenis. Pridėkite arba išimkite lėšų iš sąskaitos:</p>
+    <h1 >Redaguoti balansą</h1>
 
-<form action="/accounts/update/<?= $accounts['id'] ?>" method="post">
+    <p >Pridėkite arba išimkite lėšų iš sąskaitos:</p>
 
-    <div>
-        <label for="firstName">Vardas</label>
-        <input type="text" name="firstName" id="firstName" value="<?= $accounts['firstName'] ?>" required>
-    </div>
-    <div>
-        <label for="lastName">Pavardė</label>
-        <input type="text" name="lastName" id="lastName" value="<?= $accounts['lastName'] ?>" required>
-    </div>
-    <div>
-        <label for="personalId">Asmens kodas</label>
-        <input type="text" name="personalId" id="personalId" value="<?= $accounts['personalId'] ?>" required>
-    </div>
-    <div>
-        <label for="accountNo">Banko sąskaitos numeris</label>
-        <input type="text" name="accountNo" id="accountNo" value="<?= $accounts['accountNo'] ?>" required>
-    </div>
-    <div>
-        <label for="balance">Balansas</label>
-        <input type="number" name="balance" id="balance" min="0" step="0.01" value="<?= $accounts['balance'] ?>" required>
+    <form  style="width:50%;" action="/accounts/update/<?= $id ?>" method="post">
+        <div style="display: flex; flex-direction: column;">
+            <h3><?= $firstName ?> <?= $lastName ?></h3>
+        </div>
+        <div  style="display: flex; flex-direction: column;">
+            <p>Sąskaitos numeris</p>
+            <p class="w3-input"><?= $iban ?></p>
+        </div>
+        <div  style="display: flex; flex-direction: column;">
+            <p>Balansas</p>
+            <p class="w3-input"><?= $balance ?> €</p>
+        </div>
+
+        <div  style="display: flex; flex-direction: column;">
+            <label for="amount">Redaguoti balansą:</label>
+            <input  type="number" name="amount" id="amount" placeholder="Įveskite sumą" required>
+        </div>
+
+        <div >
+            <button  type="submit" name="add" value=1>Pridėti</button>
+            <button type="submit" name="withdraw" value=1>Išimti</button>
+        </div>
+    </form>
+
+    <div >
+        <button >
+            <a href="/accounts">Grįžti į sąskaitų sąrašą</a>
+        </button>
     </div>
 
-    <div>
-        <button type="submit">Pridėti</button>
-        <button type="submit">Išimti</button>
-    </div>
-</form>
-
-<div>
-    <button>
-        <a href="/accounts">Atšaukti</a>
-    </button>
 </div>

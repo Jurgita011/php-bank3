@@ -1,6 +1,6 @@
-<div class=>
+<div >
 
-    <h1 class=>Pridėti naują sąskaitą</h1>
+    <h1>Pridėti naują sąskaitą</h1>
 
     <p >Įveskite reikalingus duomenis, kad galėtumėte pridėti naują sąskaitą:</p>
 
