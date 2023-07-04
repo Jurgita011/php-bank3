@@ -1,26 +1,26 @@
-<div >
+<div class="w3-container w3-margin">
 
-    <h1>Ištrinti sąskaitą</h1>
+    <h1 class="w3-card w3-amber w3-padding">Ištrinti sąskaitą</h1>
 
-    <p >Ar tikrai norite ištrinti sąskaitą?</p>
+    <p class="w3-margin">Ar tikrai norite ištrinti sąskaitą?</p>
 
-    <form  action="/accounts/destroy/<?= $id ?>" method="post">
+    <form class="w3-card w3-container" style="width:50%;" action="/accounts/destroy/<?= $id ?>" method="post">
 
-        <div >
-            <h3><?= $firstName ?> <?= $lastName ?></h3>
+        <div class="w3-container" style="display: flex; flex-direction: column;">
+            <h3><?= $first_name ?> <?= $last_name ?></h3>
         </div>
-        <div>
+        <div class="w3-container" style="display: flex; flex-direction: column;">
             <p>Sąskaitos numeris</p>
-            <p<?= $iban ?></p>
+            <p class="w3-input"><?= $iban ?></p>
         </div>
-        <div >
+        <div class="w3-container" style="display: flex; flex-direction: column;">
             <p>Balansas</p>
-            <p ><?= $balance ?> €</p>
+            <p class="w3-input"><?= $balance ?> €</p>
         </div>
 
-        <div >
-            <button type="submit">Ištrinti</button>
-            <button >
+        <div class="w3-padding">
+            <button class="w3-btn w3-amber" type="submit">Ištrinti</button>
+            <button class="w3-btn w3-grey">
                 <a href="/accounts">Atšaukti</a>
             </button>
         </div>

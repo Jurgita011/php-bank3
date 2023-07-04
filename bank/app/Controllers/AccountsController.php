@@ -3,7 +3,6 @@
 namespace Bank\Controllers;
 
 use Bank\App;
-use Bank\FileWriter;
 use Bank\IbanId;
 use Bank\OldData;
 use Bank\Messages;
@@ -13,7 +12,7 @@ class AccountsController
 {
     public function index()
     {
-        $data = new FileWriter('account');
+        $data = App::get('account');
 
         return App::view('accounts/index', [
             'pageTitle' => 'Sąskaitų sąrašas',
@@ -25,16 +24,16 @@ class AccountsController
     {
         $old = OldData::getFlashData() ?? [];
 
-        $firstname = $old['firstName'] ?? '';
-        $lastName = $old['lastName'] ?? '';
-        $personalId = $old['personalId'] ?? '';
+        $first_name = $old['first_name'] ?? '';
+        $last_name = $old['last_name'] ?? '';
+        $personal_id = $old['personal_id'] ?? '';
         $iban = $old['iban'] ?? IbanId::generateLithuanianIBAN();
 
         return App::view('accounts/create', [
             'pageTitle' => 'Pridėti sąskaitą',
-            'firstName' => $firstname,
-            'lastName' => $lastName,
-            'personalId' => $personalId,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'personal_id' => $personal_id,
             'iban' => $iban
         ]);
     }
@@ -47,19 +46,19 @@ class AccountsController
         $error2 = 0;
         $error3 = 0;
 
-        if (strlen($firstName) < 3 || strlen($lastName) < 3) {
-            Messages::addMessage('warning', 'Vardą ir pavardę turi sudaryti bent trys simboliai.');
+        if (strlen($first_name) < 3 || strlen($last_name) < 3) {
+            Messages::addMessage('danger', 'Vardą ir pavardę turi sudaryti bent trys simboliai.');
             $error1 = 1;
         }
 
-        if (!ctype_digit($personalId) || strlen(trim($personalId)) !== 11) {
-            Messages::addMessage('warning', 'Asmens kodą turi sudaryti vienuolika skaičių.');
+        if (!ctype_digit($personal_id) || strlen(trim($personal_id)) !== 11) {
+            Messages::addMessage('danger', 'Asmens kodą turi sudaryti vienuolika skaičių.');
             $error2 = 1;
         }
 
         foreach ($accounts as $account) {
-            if ($account['personalId'] === $personalId) {
-                Messages::addMessage('warning', 'Vartotojas su tokiu asmens kodu jau įvestas.');
+            if ($account['personal_id'] === $personal_id) {
+                Messages::addMessage('danger', 'Vartotojas su tokiu asmens kodu jau įvestas.');
                 $error3 = 1;
             }
         }
@@ -70,12 +69,12 @@ class AccountsController
             die;
         }
 
-        $data = new FileWriter('account');
+        $data = App::get('account');
         $newAccount = [
             'id' => $id,
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'personalId' => $personalId,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'personal_id' => $personal_id,
             'iban' => $iban,
             'balance' => 0
         ];
@@ -87,22 +86,22 @@ class AccountsController
 
     public function edit(int $id)
     {
-        $data = new FileWriter('account');
+        $data = App::get('account');
         $account = $data->show($id);
 
         $id = $account['id'];
-        $firstName = $account['firstName'];
-        $lastName = $account['lastName'];
-        $personalId = $account['personalId'];
+        $first_name = $account['first_name'];
+        $last_name = $account['last_name'];
+        $personal_id = $account['personal_id'];
         $iban = $account['iban'];
         $balance = $account['balance'];
 
         return App::view('accounts/edit', [
             'pageTitle' => 'Redaguoti sąskaitą',
             'id' => $id,
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'personalId' => $personalId,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'personal_id' => $personal_id,
             'iban' => $iban,
             'balance' => $balance
         ]);
@@ -110,14 +109,14 @@ class AccountsController
 
     public function update(int $id, array $request, int $delete = 0)
     {
-        $data = new FileWriter('account');
+        $data = App::get('account');
         $account = $data->show($id);
 
         $amount = $request['amount'];
 
         if (isset($request['add'])) {
             if ($amount <= 0) {
-                Messages::addMessage('warning', 'Įvesta suma turi būti teigiamas sveikasis skaičius.');
+                Messages::addMessage('danger', 'Įvesta suma turi būti teigiamas sveikasis skaičius.');
                 header('Location: /accounts/edit/' . $id);
                 die;
             }
@@ -131,7 +130,7 @@ class AccountsController
 
         if (isset($_POST['withdraw'])) {
             if ($amount <= 0) {
-                Messages::addMessage('warning', 'Įvesta suma turi būti teigiamas sveikasis skaičius.');
+                Messages::addMessage('danger', 'Įvesta suma turi būti teigiamas sveikasis skaičius.');
                 header('Location: /accounts/edit/' . $id);
                 die;
             }
@@ -155,21 +154,21 @@ class AccountsController
 
     public function delete(int $id)
     {
-        $account = (new FileWriter('account'))->show($id);
+        $account = (App::get('account'))->show($id);
 
         $id = $account['id'];
-        $firstName = $account['firstName'];
-        $lastName = $account['lastName'];
-        $personalId = $account['personalId'];
+        $first_name = $account['first_name'];
+        $last_name = $account['last_name'];
+        $personal_id = $account['personal_id'];
         $iban = $account['iban'];
         $balance = $account['balance'];
 
         return App::view('accounts/delete', [
             'pageTitle' => 'Ištrinti sąskaitą',
             'id' => $id,
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'personalId' => $personalId,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'personal_id' => $personal_id,
             'iban' => $iban,
             'balance' => $balance,
         ]);
@@ -177,7 +176,7 @@ class AccountsController
 
     public function destroy(int $id)
     {
-        $data = new FileWriter('account');
+        $data = App::get('account');
         $account = $data->show($id);
         if ($account['balance'] == 0) {
             $data->delete($id);

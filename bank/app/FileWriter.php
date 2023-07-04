@@ -5,7 +5,6 @@ namespace Bank;
 use App\DB\DataBase;
 
 class FileWriter implements DataBase
-
 {
     private $data, $fileName;
     
